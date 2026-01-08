@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { STORE_LOCATION } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
-import { Navigation } from "lucide-react";
+import { Navigation, Maximize2, Minimize2, X } from "lucide-react";
 
 // Fix Leaflet's default icon issue
 const icon = L.icon({
@@ -103,21 +103,101 @@ function LocateControl() {
   );
 }
 
-export default function MapPicker({ onLocationSelect }: LocationPickerProps) {
-  return (
-    <MapContainer
-      center={[STORE_LOCATION.lat, STORE_LOCATION.lng]}
-      zoom={13}
-      style={{ height: "100%", width: "100%", zIndex: 1 }}
-      scrollWheelZoom={true}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
 
-      <MapDataController onLocationSelect={onLocationSelect} />
-      <LocateControl />
-    </MapContainer>
+
+// ... existing imports ...
+
+// Fullscreen Control Component
+function FullscreenControl({ isFullscreen, onToggle }: { isFullscreen: boolean; onToggle: () => void }) {
+  const map = useMap();
+  const controlRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (controlRef.current) {
+      L.DomEvent.disableClickPropagation(controlRef.current);
+      L.DomEvent.disableScrollPropagation(controlRef.current);
+    }
+  }, []);
+
+  // Invalidate size when fullscreen toggles to ensure tiles load correctly
+  useEffect(() => {
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 100);
+  }, [isFullscreen, map]);
+
+  const handleToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onToggle();
+  };
+
+  return (
+    <div className="leaflet-top leaflet-right">
+      <div
+        ref={controlRef}
+        className="leaflet-control m-4"
+      >
+        <Button
+          size="icon"
+          className="bg-white text-gray-700 hover:bg-gray-50 w-10 h-10 rounded-lg shadow-xl border-0 ring-1 ring-gray-200"
+          onClick={handleToggle}
+          title={isFullscreen ? "Salir de pantalla completa" : "Pantalla completa"}
+          type="button"
+        >
+          {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+export default function MapPicker({ onLocationSelect }: LocationPickerProps) {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Prevent scrolling on body when map is fullscreen
+  useEffect(() => {
+    if (isFullscreen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isFullscreen]);
+
+  return (
+    <div className={isFullscreen ? "fixed inset-0 z-50 bg-white" : "h-full w-full relative z-0"}>
+      {/* Close Button Mobile Overlay (Only visible in fullscreen) */}
+      {isFullscreen && (
+        <div className="absolute top-4 left-4 z-[1000] md:hidden">
+          <Button
+            size="icon"
+            variant="ghost"
+            className="bg-white/90 backdrop-blur shadow-md rounded-full w-10 h-10"
+            onClick={() => setIsFullscreen(false)}
+          >
+            <X className="w-6 h-6 text-gray-700" />
+          </Button>
+        </div>
+      )}
+
+      <MapContainer
+        center={[STORE_LOCATION.lat, STORE_LOCATION.lng]}
+        zoom={13}
+        style={{ height: "100%", width: "100%", zIndex: 1 }}
+        scrollWheelZoom={true}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        <MapDataController onLocationSelect={onLocationSelect} />
+        <LocateControl />
+        <FullscreenControl isFullscreen={isFullscreen} onToggle={() => setIsFullscreen(!isFullscreen)} />
+      </MapContainer>
+    </div>
   );
 }
