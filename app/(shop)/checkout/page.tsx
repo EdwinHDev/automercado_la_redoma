@@ -51,6 +51,7 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = () => {
     if (!form.name || !form.phone || !addressDetails || !manualAddress || !refNumber || !coords) return;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setOrderPlaced(true);
     clearCart();
   };
