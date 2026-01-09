@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 import { use, useState } from "react";
 import dynamicImport from "next/dynamic";
 import Link from "next/link";
-import { ArrowLeft, Phone, Navigation, MapPin, CheckCircle, AlertTriangle } from "lucide-react";
+import { ArrowLeft, Phone, Navigation, MapPin, CheckCircle, AlertTriangle, Ban, CircleAlert } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { STORE_LOCATION } from "@/lib/utils";
 
@@ -17,8 +17,8 @@ const MOCK_DELIVERY_DATA = {
   customer: {
     name: "Maria Rodríguez",
     phone: "04145550012",
-    address: "Urb. Los Mangos, Casa 22-A, Calle Principal",
-    details: "Tocar timbre gris, casa azul.",
+    address: "Urb. Coviaguard, Casa 47, Calle Aragua",
+    details: "Detras del liceo.",
     location: { lat: 7.9915646729875345, lng: -62.38174344051456 } // Mock location slightly offset from store
   },
   items: 8,
@@ -115,16 +115,14 @@ export default function DeliveryPage({ params }: { params: Promise<{ id: string 
             <Button
               variant="outline"
               className="h-12 rounded-xl border-gray-200 text-gray-700 hover:bg-gray-50 font-medium"
-              onClick={() => handleOpenMaps('google')}
             >
-              <Navigation className="w-4 h-4 mr-2" /> Google Maps
+              <CircleAlert className="w-4 h-4 mr-2" /> Reportar un problema
             </Button>
             <Button
               variant="outline"
               className="h-12 rounded-xl border-gray-200 text-gray-700 hover:bg-gray-50 font-medium"
-              onClick={() => handleOpenMaps('waze')}
             >
-              <Navigation className="w-4 h-4 mr-2" /> Waze
+              <Ban className="w-4 h-4 mr-2" /> No entregado
             </Button>
           </div>
 
