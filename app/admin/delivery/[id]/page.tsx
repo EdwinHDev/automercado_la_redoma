@@ -15,8 +15,8 @@ import { STORE_LOCATION } from "@/lib/utils";
 const MOCK_DELIVERY_DATA = {
   id: "#ORD-001",
   customer: {
-    name: "Maria Rodríguez",
-    phone: "04145550012",
+    name: "Edwin Hernández",
+    phone: "04249121031",
     address: "Urb. Coviaguard, Casa 47, Calle Aragua",
     details: "Detras del liceo.",
     location: { lat: 7.9915646729875345, lng: -62.38174344051456 } // Mock location slightly offset from store
