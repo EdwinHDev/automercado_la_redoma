@@ -230,16 +230,16 @@ export default function CheckoutPage() {
 
               <div className="space-y-4">
                 <p className="text-sm text-gray-600">
-                  Realiza el pago móvil y escribe los últimos 4 dígitos de la referencia.
+                  Realiza el pago móvil y escribe el número de referencia completo.
                 </p>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700 ml-1">Referencia</label>
                   <Input
-                    placeholder="Ej. 1234"
+                    placeholder="Ej. 12345678"
                     value={refNumber}
                     onChange={e => setRefNumber(e.target.value)}
                     className="h-12 bg-gray-50 border-gray-200 focus:bg-white transition-colors rounded-xl font-mono tracking-widest text-center text-lg"
-                    maxLength={8}
+                    maxLength={20}
                   />
                 </div>
               </div>

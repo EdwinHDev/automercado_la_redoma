@@ -75,12 +75,14 @@ function LocateControl() {
     }
   }, []);
 
-  const handleLocate = (e: React.MouseEvent) => {
+  const handleLocate = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log("Locate triggered");
     setLoading(true);
-    map.locate();
-    setTimeout(() => setLoading(false), 2000);
+    map.locate({ enableHighAccuracy: true });
+    // Reset loading state after 5s if no location found (fallback)
+    setTimeout(() => setLoading(false), 5000);
   };
 
   return (
@@ -93,6 +95,7 @@ function LocateControl() {
           size="icon"
           className="bg-white text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 w-12 h-12 rounded-full shadow-xl border-0 ring-1 ring-gray-200"
           onClick={handleLocate}
+          onTouchEnd={handleLocate}
           title="Usar mi ubicación"
           type="button"
         >
