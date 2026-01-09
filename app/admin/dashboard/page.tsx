@@ -363,9 +363,6 @@ export default function AdminDashboard() {
                               <h3 className="font-bold text-gray-900 flex items-center">
                                 <MapPin className="w-5 h-5 mr-2 text-emerald-600" /> Ubicación del Cliente
                               </h3>
-                              <button onClick={() => setShowMapModal(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                                <X className="w-6 h-6 text-gray-500" />
-                              </button>
                             </div>
                             <div className="flex-1 relative bg-gray-100">
                               <ClientLocationMap lat={selectedOrder.location.lat} lng={selectedOrder.location.lng} interactive={true} />

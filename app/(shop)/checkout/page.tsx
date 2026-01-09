@@ -50,7 +50,7 @@ export default function CheckoutPage() {
   const total = subtotal + (coords ? shippingCost : 0);
 
   const handlePlaceOrder = () => {
-    if (!form.name || !form.phone || !refNumber || !coords) return;
+    if (!form.name || !form.phone || !addressDetails || !manualAddress || !refNumber || !coords) return;
     setOrderPlaced(true);
     clearCart();
   };
@@ -116,7 +116,7 @@ export default function CheckoutPage() {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 ml-1">Nombre Completo</label>
+                <label className="text-sm font-medium text-gray-700 ml-1">Nombre Completo <span className="text-red-500">*</span></label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                   <Input
@@ -128,10 +128,11 @@ export default function CheckoutPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 ml-1">Teléfono</label>
+                <label className="text-sm font-medium text-gray-700 ml-1">Teléfono <span className="text-red-500">*</span></label>
                 <div className="relative">
                   <span className="absolute left-3 top-3 font-bold text-gray-400 text-sm select-none py-0.5">+58</span>
                   <Input
+                    type="tel"
                     placeholder="412 123 4567"
                     value={form.phone}
                     onChange={e => setForm({ ...form, phone: e.target.value })}
@@ -171,7 +172,7 @@ export default function CheckoutPage() {
 
               <div className="mt-4 grid gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 ml-1 mb-2 block">Dirección Detallada (Opcional)</label>
+                  <label className="text-sm font-medium text-gray-700 ml-1 mb-2 block">Dirección Detallada <span className="text-red-500">*</span></label>
                   <Input
                     placeholder="Av. Principal, Edificio Azul, Piso 2..."
                     value={manualAddress}
@@ -180,7 +181,7 @@ export default function CheckoutPage() {
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700 ml-1 mb-2 block">Punto de Referencia</label>
+                  <label className="text-sm font-medium text-gray-700 ml-1 mb-2 block">Punto de Referencia <span className="text-red-500">*</span></label>
                   <Input
                     placeholder="Ej. Frente a la plaza, rejas negras."
                     value={addressDetails}
@@ -233,7 +234,7 @@ export default function CheckoutPage() {
                   Realiza el pago móvil y escribe el número de referencia completo.
                 </p>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 ml-1">Referencia</label>
+                  <label className="text-sm font-medium text-gray-700 ml-1">Referencia <span className="text-red-500">*</span></label>
                   <Input
                     placeholder="Ej. 12345678"
                     value={refNumber}
@@ -299,7 +300,7 @@ export default function CheckoutPage() {
 
               <Button
                 className="w-full h-14 mt-8 text-lg font-bold rounded-xl bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-200 disabled:opacity-50 disabled:shadow-none"
-                disabled={!form.name || !form.phone || !refNumber || !coords}
+                disabled={!form.name || !form.phone || !addressDetails || !manualAddress || !refNumber || !coords}
                 onClick={handlePlaceOrder}
               >
                 Confirmar Compra
