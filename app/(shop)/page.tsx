@@ -21,7 +21,7 @@ export default async function Home(props: {
     <div className="min-h-screen pb-12">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-emerald-900 to-emerald-700 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=60&w=1200')] bg-cover bg-center opacity-20" />
+        <div className="absolute inset-0 bg-[url('/images/bg.webp')] bg-cover bg-center opacity-30" />
         <div className="container relative mx-auto px-4 py-20 md:py-32 flex flex-col items-center text-center">
           <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-emerald-100 uppercase bg-emerald-800/50 rounded-full backdrop-blur-sm border border-emerald-400/30">
             Directo del campo
