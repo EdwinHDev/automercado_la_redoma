@@ -19,7 +19,7 @@ const MOCK_DELIVERY_DATA = {
     phone: "04145550012",
     address: "Urb. Los Mangos, Casa 22-A, Calle Principal",
     details: "Tocar timbre gris, casa azul.",
-    location: { lat: 10.496, lng: -66.852 } // Mock location slightly offset from store
+    location: { lat: 7.9915646729875345, lng: -62.38174344051456 } // Mock location slightly offset from store
   },
   items: 8,
   total: 45.50

@@ -13,8 +13,8 @@ export const formatCurrency = (amount: number) => {
 };
 
 export const STORE_LOCATION = {
-  lat: 10.496052, // Plaza Venezuela aprox
-  lng: -66.885149,
+  lat: 7.998335257740758,
+  lng: -62.39170016309048,
 };
 
 export function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number) {

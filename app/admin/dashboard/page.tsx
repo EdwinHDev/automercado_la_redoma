@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import dynamicImport from "next/dynamic";
 import {
   Package,
   Clock,
@@ -16,13 +18,18 @@ import {
   ChefHat,
   Bike,
   Menu,
-  ArrowLeft
+  ArrowLeft,
+  X,
+  Maximize2
 } from "lucide-react";
-import { useEffect } from "react";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+
+// Lazy load Maps
+const ClientLocationMap = dynamicImport(() => import("@/components/admin/ClientLocationMap"), {
+  ssr: false,
+  loading: () => <div className="h-full w-full bg-emerald-50 animate-pulse flex items-center justify-center text-emerald-800 text-xs font-bold">Cargando Mapa...</div>
+});
 
 // Mock Data
 const MOCK_ORDERS = [
@@ -41,6 +48,7 @@ const MOCK_ORDERS = [
     ],
     address: "Urb. Los Mangos, Casa 22-A, Calle Principal",
     details: "Tocar timbre gris.",
+    location: { lat: 7.9915646729875345, lng: -62.38174344051456 },
     paymentRef: "00123456",
   },
   {
@@ -82,6 +90,7 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("all");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showDetailsMobile, setShowDetailsMobile] = useState(false);
+  const [showMapModal, setShowMapModal] = useState(false);
 
   useEffect(() => {
     // Ensure correct initial state on mount
@@ -122,7 +131,7 @@ export default function AdminDashboard() {
 
       {/* Sidebar */}
       <aside className={cn(
-        "fixed md:static inset-y-0 left-0 z-50 w-64 bg-emerald-900 text-white flex flex-col shrink-0 transition-transform duration-300 transform md:transform-none shadow-2xl md:shadow-none",
+        "fixed md:static inset-y-0 left-0 z-50 w-64 bg-emerald-900 text-white flex flex-col shrink-0 transition-transform duration-300 transform md:transform-none md:translate-x-0 shadow-2xl md:shadow-none",
         mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         <div className="p-4 md:p-6 flex items-center justify-between">
@@ -277,9 +286,11 @@ export default function AdminDashboard() {
                       </>
                     )}
                     {selectedOrder.status === "processing" && (
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 flex items-center">
-                        <Bike className="w-4 h-4 mr-2" /> Marcar Enviado
-                      </Button>
+                      <Link href={`/admin/delivery/${encodeURIComponent(selectedOrder.id)}`}>
+                        <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-200 flex items-center">
+                          <Bike className="w-4 h-4 mr-2" /> Ver Ruta
+                        </Button>
+                      </Link>
                     )}
                   </div>
                 </div>
@@ -321,11 +332,51 @@ export default function AdminDashboard() {
                         <p className="text-xs text-gray-500 uppercase font-bold tracking-wider">Referencia</p>
                         <p className="text-gray-600 text-sm italic">"{selectedOrder.details}"</p>
                       </div>
-                      {/* Fake Map */}
-                      <div className="h-24 w-full bg-emerald-50 rounded-lg border border-emerald-100 flex items-center justify-center relative overflow-hidden group cursor-pointer">
-                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=600')] bg-cover opacity-50 grayscale group-hover:grayscale-0 transition-all" />
-                        <span className="relative z-10 text-xs font-bold text-emerald-800 bg-white/90 px-3 py-1 rounded-full shadow-sm">Ver en Mapa</span>
+
+                      {/* Client Location Map */}
+                      <div className="h-32 w-full rounded-xl border border-emerald-100 overflow-hidden relative shadow-sm group">
+                        {selectedOrder.location ? (
+                          <ClientLocationMap lat={selectedOrder.location.lat} lng={selectedOrder.location.lng} interactive={false} />
+                        ) : (
+                          <div className="h-full w-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">
+                            Sin ubicación GPS
+                          </div>
+                        )}
+                        {selectedOrder.location && (
+                          <div className="absolute top-2 right-2 z-[400]">
+                            <button
+                              onClick={() => setShowMapModal(true)}
+                              className="bg-white/90 backdrop-blur p-1.5 rounded-lg shadow-sm border border-emerald-100 text-emerald-800 hover:bg-emerald-50 transition-colors"
+                              title="Ver pantalla completa"
+                            >
+                              <Maximize2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        )}
                       </div>
+
+                      {/* Map Modal */}
+                      {showMapModal && selectedOrder?.location && (
+                        <div className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setShowMapModal(false)}>
+                          <div className="bg-white w-full max-w-4xl h-[80vh] rounded-2xl overflow-hidden shadow-2xl relative flex flex-col" onClick={e => e.stopPropagation()}>
+                            <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white z-10">
+                              <h3 className="font-bold text-gray-900 flex items-center">
+                                <MapPin className="w-5 h-5 mr-2 text-emerald-600" /> Ubicación del Cliente
+                              </h3>
+                              <button onClick={() => setShowMapModal(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                                <X className="w-6 h-6 text-gray-500" />
+                              </button>
+                            </div>
+                            <div className="flex-1 relative bg-gray-100">
+                              <ClientLocationMap lat={selectedOrder.location.lat} lng={selectedOrder.location.lng} interactive={true} />
+                            </div>
+                            <div className="p-4 border-t border-gray-100 bg-gray-50 text-xs text-gray-500 text-center">
+                              La ubicación es proporcionada por el cliente y no puede ser modificada.
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
                     </div>
                   </div>
                 </div>
