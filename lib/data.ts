@@ -244,7 +244,7 @@ export const products: Product[] = [
     description: "Corte de solomo cuerito tierno.",
     price: 7.80,
     category: "Carnicería",
-    image: "/images/pollo_congelado.webp",
+    image: "/images/solomo.jpg",
     weight: "1 kg",
   },
   {
@@ -264,7 +264,7 @@ export const products: Product[] = [
     description: "Queso llanero salado para rallar.",
     price: 6.00,
     category: "Charcutería",
-    image: "https://images.unsplash.com/photo-1589881133595-a3c085cb731d?w=800&auto=format&fit=crop",
+    image: "/images/queso_duro.png",
     weight: "1 kg",
   },
   {
@@ -273,7 +273,7 @@ export const products: Product[] = [
     description: "Queso tipo Gouda rebanado.",
     price: 9.00,
     category: "Charcutería",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=800&auto=format&fit=crop",
+    image: "/images/queso-amarillo.jpg",
     weight: "500 g",
   },
   {
@@ -282,7 +282,7 @@ export const products: Product[] = [
     description: "Jamón cocido superior.",
     price: 8.50,
     category: "Charcutería",
-    image: "/images/pollo_congelado.webp",
+    image: "/images/jamon_pierna.jpg",
     weight: "500 g",
   },
   {
@@ -291,7 +291,7 @@ export const products: Product[] = [
     description: "Salchichas tipo viena, paquete.",
     price: 2.50,
     category: "Charcutería",
-    image: "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=800&auto=format&fit=crop",
+    image: "/images/salchichas.jpg",
     weight: "22 un",
   },
   {
@@ -300,7 +300,7 @@ export const products: Product[] = [
     description: "Tocineta ahumada rebanada.",
     price: 5.00,
     category: "Charcutería",
-    image: "/images/pollo_congelado.webp",
+    image: "/images/tocineta.jpg",
     weight: "250 g",
   },
 
@@ -311,7 +311,7 @@ export const products: Product[] = [
     description: "Plátano macho maduro.",
     price: 1.50,
     category: "Frutas y Verduras",
-    image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=800&auto=format&fit=crop",
+    image: "/images/platanos.webp",
     weight: "1 kg",
   },
   {
@@ -338,7 +338,7 @@ export const products: Product[] = [
     description: "Cebolla blanca nacional.",
     price: 1.50,
     category: "Frutas y Verduras",
-    image: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1518977956812-cd3dbadaaf31?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     weight: "1 kg",
   },
   {
@@ -347,7 +347,7 @@ export const products: Product[] = [
     description: "Tomate perita rojo.",
     price: 1.70,
     category: "Frutas y Verduras",
-    image: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&auto=format&fit=crop",
+    image: "https://plus.unsplash.com/premium_photo-1675237625460-49b9caeddfa9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     weight: "1 kg",
   },
   {
@@ -403,27 +403,27 @@ export const products: Product[] = [
     description: "Leche en polvo completa.",
     price: 7.50,
     category: "Lácteos y Huevos",
-    image: "/images/pollo_congelado.webp",
+    image: "/images/leche-la-campina.jpg",
     weight: "900 g",
   },
 
   // --- BEBIDAS ---
   {
     id: "701",
-    name: "Refresco de Cola (2L)",
+    name: "Coca-Cola",
     description: "Refresco sabor a cola negra.",
     price: 2.00,
     category: "Bebidas",
-    image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=800&auto=format&fit=crop", // Placeholder soda
+    image: "https://images.unsplash.com/photo-1728762619937-830568ac6a21?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Placeholder soda
     weight: "2 L",
   },
   {
     id: "702",
-    name: "Refresco Naranja (2L)",
+    name: "Fanta",
     description: "Refresco sabor naranja.",
     price: 2.00,
     category: "Bebidas",
-    image: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=800&auto=format&fit=crop",
+    image: "/images/fanta.jpeg",
     weight: "2 L",
   },
   {
@@ -432,7 +432,7 @@ export const products: Product[] = [
     description: "Botellón de agua potable.",
     price: 4.00,
     category: "Bebidas",
-    image: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=800&auto=format&fit=crop",
+    image: "/images/nevada.jpeg",
     weight: "5 L",
   },
   {
@@ -441,7 +441,7 @@ export const products: Product[] = [
     description: "Bebida de malta, botella.",
     price: 1.20,
     category: "Bebidas",
-    image: "/images/pollo_congelado.webp",
+    image: "/images/malta.jpg",
     weight: "1 L",
   },
 
@@ -452,16 +452,16 @@ export const products: Product[] = [
     description: "Galletas saladas tipo soda.",
     price: 1.50,
     category: "Snacks",
-    image: "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1666014313959-348bf6f7b0a4?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     weight: "Paquete",
   },
   {
     id: "802",
-    name: "Papitas Fritas",
-    description: "Papas fritas saladas.",
+    name: "Doritos",
+    description: "Snack de maíz con queso.",
     price: 2.00,
     category: "Snacks",
-    image: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1600952841320-db92ec4047ca?q=80&w=725&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     weight: "150 g",
   },
   {
@@ -470,7 +470,7 @@ export const products: Product[] = [
     description: "Snack de maíz con queso.",
     price: 1.80,
     category: "Snacks",
-    image: "https://images.unsplash.com/photo-1600959907703-125ba1374a12?w=800&auto=format&fit=crop",
+    image: "/images/pepito.jpg",
     weight: "120 g",
   },
 ];
